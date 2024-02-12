@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"golang.org/x/net/websocket"
 )
@@ -32,8 +33,17 @@ func (s *Server) readLoop(ws *websocket.Conn) {
 			continue
 		}
 		msg := buf[:n]
-		fmt.Println(string(msg))
-		ws.Write([]byte("Thank you for the message!"))
+		s.broadcast(msg)
+	}
+}
+
+func (s *Server) handleWsOrderbook(ws *websocket.Conn) {
+	fmt.Println("New incoming connection from client:", ws.RemoteAddr())
+
+	for {
+		payload := fmt.Sprintf("orderbook data ----> %d\n", time.Now().UnixNano())
+		ws.Write([]byte(payload))
+		time.Sleep(time.Second * 2)
 	}
 }
 
@@ -45,8 +55,19 @@ func (s *Server) handleWs(ws *websocket.Conn) {
 	s.readLoop(ws)
 }
 
-func main () {
+func (s *Server) broadcast(b []byte) {
+	for  ws := range s.conns {
+		go func(ws *websocket.Conn) {
+			if _, err := ws.Write(b); err!= nil {
+				fmt.Println("Write error:", err)
+			}
+		} (ws)
+	}
+}
+
+func main() {
 	server := NewServer()
 	http.Handle("/ws", websocket.Handler(server.handleWs))
+	http.Handle("/orderbook", websocket.Handler(server.handleWsOrderbook))
 	http.ListenAndServe(":6969", nil)
 }

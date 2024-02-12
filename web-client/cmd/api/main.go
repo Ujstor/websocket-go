@@ -1,7 +1,7 @@
 package main
 
 import (
-	"websockets/client/internal/server"
+	"websockets/web-client/internal/server"
 	"fmt"
 )
 
