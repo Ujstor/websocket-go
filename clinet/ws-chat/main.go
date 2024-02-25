@@ -37,7 +37,7 @@ func sendMessages(ws *websocket.Conn) {
 }
 
 func main() {
-	ws, err := websocket.Dial("ws://localhost:6969/ws", "", "http://ujstor.dev")
+	ws, err := websocket.Dial("ws://localhost:8083/ws", "", "http://ujstor-chat.dev")
 	if err != nil {
 		log.Fatal("WebSocket dial error:", err)
 	}

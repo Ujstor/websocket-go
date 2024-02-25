@@ -1,8 +1,9 @@
-module websockets
+module ws
 
-go 1.21.5
+go 1.22.0
 
 require (
+	github.com/go-chi/chi/v5 v5.0.12
 	github.com/joho/godotenv v1.5.1
-	golang.org/x/net v0.20.0
+	golang.org/x/net v0.21.0
 )

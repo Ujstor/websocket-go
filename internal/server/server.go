@@ -8,16 +8,20 @@ import (
 	"time"
 
 	_ "github.com/joho/godotenv/autoload"
+
+	"golang.org/x/net/websocket"
 )
 
 type Server struct {
 	port int
+	conn map[*websocket.Conn]bool
 }
 
 func NewServer() *http.Server {
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
 	NewServer := &Server{
 		port: port,
+		conn: make(map[*websocket.Conn]bool),
 	}
 
 	// Declare Server config

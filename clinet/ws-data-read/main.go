@@ -1,13 +1,12 @@
 package main
 
 import (
-    "fmt"
     "log"
     "golang.org/x/net/websocket"
 )
 
 func main() {
-    ws, err := websocket.Dial("ws://localhost:6969/orderbook", "", "http://localhost/")
+    ws, err := websocket.Dial("ws://localhost:8083/websocket", "", "http://test.com/")
     if err != nil {
         log.Fatal("WebSocket dial error:", err)
     }
@@ -20,6 +19,6 @@ func main() {
         if err != nil {
             log.Fatal("Read error:", err)
         }
-        fmt.Println("Received:", string(response[:n]))
+        log.Println("Received:", string(response[:n]))
     }
 }

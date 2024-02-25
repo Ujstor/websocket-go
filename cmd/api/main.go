@@ -1,8 +1,8 @@
 package main
 
 import (
-	"websockets/web-client/internal/server"
 	"fmt"
+	"ws/internal/server"
 )
 
 func main() {
