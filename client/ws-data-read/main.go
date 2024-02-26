@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-    ws, err := websocket.Dial("ws://localhost:8083/websocket", "", "http://test.com/")
+    ws, err := websocket.Dial("ws://server:8082/websocket", "", "http://test.com/")
     if err != nil {
         log.Fatal("WebSocket dial error:", err)
     }

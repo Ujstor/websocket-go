@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  server:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: server
+    working_dir: /app
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - websocket
+
+  data:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: data
+    working_dir: /app
+    depends_on:
+      - server
+    networks:
+      - websocket
+
+  chat-1:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: chat
+    working_dir: /app
+    depends_on:
+      - server
+    networks:
+      - websocket
+  
+  chat-2:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: chat
+    working_dir: /app
+    depends_on:
+      - server
+    networks:
+      - websocket
+
+networks:
+  websocket:

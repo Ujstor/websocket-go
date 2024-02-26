@@ -11,9 +11,30 @@ make run
 Run clinets
 
 ```bash
-go run clinet/ws-data-read/main.go
+go run client/ws-data-read/main.go
 
-go run clinet/ws-chat/main.go
+go run client/ws-chat/main.go
+```
+
+### Using docker
+
+When docker is used, clinets connection string must mach compose service name.
+```go
+websocket.Dial("ws://server:8082/ws")
+```
+
+```bash
+make docker-run
+```
+
+```bash
+docker exec -it <container-id-chat1> sh
+./clinet-chat
+```
+
+```bash
+docker exec -it <container-id-chat2> sh
+./clinet-chat
 ```
 
 
